@@ -10,7 +10,7 @@ const { publicRuntimeConfig } = getConfig();
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
-  const enableIndexingSEO = publicRuntimeConfig.enableIndexingSEO;
+  const enableIndexingSEO = publicRuntimeConfig.enableIndexingSeo;
 
   return (
     <ChakraProvider theme={theme}>
