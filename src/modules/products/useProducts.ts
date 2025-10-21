@@ -4,13 +4,17 @@ import type {
   ProductsRequest,
   ProductsResponse,
 } from "./ProductEntity";
+import getConfig from "next/config";
+
+const { publicRuntimeConfig } = getConfig();
 
 // Helper function to get the base URL for API calls
 const getBaseUrl = () => {
   // Check if we're on the server side
   if (typeof window === 'undefined') {
-    // Server-side: use the full URL with localhost
-    return 'http://localhost:3000/api/sheets';
+    // Server-side: use the full URL with the configured base URL
+    const baseUrl = publicRuntimeConfig?.baseUrl || 'http://localhost:3000';
+    return `${baseUrl}/api/sheets`;
   }
   // Client-side: use relative URL
   return '/api/sheets';
