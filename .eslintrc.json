@@ -1,0 +1,14 @@
+{
+  "extends": ["next", "next/core-web-vitals"],
+  "ignorePatterns": ["!**/*", "dist/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    }    
+  ]
+}

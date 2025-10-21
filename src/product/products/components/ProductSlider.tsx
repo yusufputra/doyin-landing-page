@@ -1,0 +1,149 @@
+import type React from "react";
+import { useRef, useState } from "react";
+import { Box, Flex, IconButton } from "@chakra-ui/react";
+import { ArrowLeft } from "@phosphor-icons/react/dist/csr/ArrowLeft";
+import { ArrowRight } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { Product } from "@/modules/products/ProductEntity";
+import ProductCard from "./ProductCard";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+interface ProductSliderProps {
+  products: Product[];
+}
+
+function NextArrow(props: any) {
+  const { onClick } = props;
+  return (
+    <IconButton
+      aria-label="Next"
+      onClick={onClick}
+      position="absolute"
+      right={{ base: 0, md: 20 }}
+      top="32%"
+      transform="translateY(-50%)"
+      zIndex={2}
+      rounded="full"
+      bg="white"
+      shadow="lg"
+      _hover={{ bg: "gray.100" }}
+      w="52px"
+      h="52px"
+    >
+      <ArrowRight size={20} />
+    </IconButton>
+  );
+}
+
+function PrevArrow(props: any) {
+  const { onClick } = props;
+  return (
+    <IconButton
+      aria-label="Previous"
+      onClick={onClick}
+      position="absolute"
+      left={{ base: 0, md: 5 }}
+      top="32%"
+      transform="translateY(-50%)"
+      zIndex={2}
+      rounded="full"
+      bg="white"
+      shadow="lg"
+      _hover={{ bg: "gray.100" }}
+      w="52px"
+      h="52px"
+    >
+      <ArrowLeft size={20} />
+    </IconButton>
+  );
+}
+
+function CustomPaging({
+  isActive,
+  onClick,
+}: {
+  isActive: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <Flex w="full" h="full" justify="center" align="center">
+      <Box
+        w="12px"
+        h="12px"
+        borderRadius="full"
+        bg={isActive ? "primary.900" : "grayscale.200"}
+        onClick={onClick}
+        transition="all 0.2s"
+      />
+    </Flex>
+  );
+}
+
+export default function ProductSlider({ products }: ProductSliderProps) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const sliderRef = useRef<Slider>(null);
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    variableWidth: true,
+    beforeChange: (current: number, next: number) => setCurrentSlide(next),
+    customPaging: (i: number) => (
+      <CustomPaging
+        isActive={currentSlide === i}
+        onClick={() => {
+          if (sliderRef.current) {
+            sliderRef.current.slickGoTo(i);
+          }
+        }}
+      />
+    ),
+    appendDots: (dots: React.ReactNode) => (
+      <Box>
+        <Flex justify="center">{dots}</Flex>
+      </Box>
+    ),
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: true,
+        },
+      },
+    ],
+  };
+
+  return (
+    <Box>
+      <Slider ref={sliderRef} {...settings}>
+        {products.map((product, idx) => (
+          <Box key={idx} px={3} pl={{ base: 0, md: idx === 0 ? 20 : 3 }}>
+            <ProductCard {...product} />
+          </Box>
+        ))}
+      </Slider>
+    </Box>
+  );
+}
