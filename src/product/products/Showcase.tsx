@@ -108,8 +108,8 @@ export default function Showcase({
                 src={selectedImage}
                 alt={product?.name || "Product Image"}
                 width="full"
-                height="auto"
-                objectFit="cover"
+                height="400"
+                objectFit="contain"
                 transition="all 0.2s"
                 mb={3}
                 aspectRatio={549 / 436}
@@ -153,7 +153,7 @@ export default function Showcase({
                           alt={`Product thumbnail ${index + 1}`}
                           width={128}
                           height={100}
-                          objectFit="cover"
+                          objectFit="contain"
                           borderRadius="md"
                         />
                       </Box>
