@@ -32,8 +32,7 @@ export default function ProductCard({
               <Image
                 src={images[0].image_url || "/placeholder.svg"}
                 alt={name}
-                objectFit="cover"
-                aspectRatio={imageAspectRatio}
+                objectFit="contain"
                 maxHeight={maxImageHeight}
               />
             ) : (

@@ -83,7 +83,7 @@ export default function Catalog() {
     }
 
     return data.data.map((product, idx) => (
-      <ProductCard key={idx} {...product} />
+      <ProductCard key={idx} {...product} maxImageHeight="320px" />
     ));
   };
 

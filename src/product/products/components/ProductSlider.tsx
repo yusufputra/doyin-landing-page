@@ -140,10 +140,10 @@ export default function ProductSlider({ products }: ProductSliderProps) {
       <Slider ref={sliderRef} {...settings}>
         {products.map((product, idx) => (
           <Box key={idx} px={3} pl={{ base: 0, md: idx === 0 ? 20 : 3 }}>
-            <ProductCard {...product} />
+            <ProductCard {...product} maxImageHeight="320px" />
           </Box>
         ))}
-      </Slider>
+      </Slider> 
     </Box>
   );
 }

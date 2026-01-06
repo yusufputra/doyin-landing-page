@@ -62,7 +62,7 @@ export default function ProductRecommendations({
           gap={6}
         >
           {products.map((product, idx) => (
-            <ProductCard key={idx} {...product} />
+            <ProductCard key={idx} {...product} maxImageHeight="320px" />
           ))}
         </Grid>
       ) : (
